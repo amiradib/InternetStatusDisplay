@@ -75,14 +75,14 @@ namespace Internet.Status.Display
             for (int i = 0; i < Config.Hosts.Count; i++)
             {
                 string h = Config.Hosts[i];
-                Arc a = new Arc() { ArcThickness = 1, ArcThicknessUnit = Microsoft.Expression.Media.UnitType.Percent, Stretch = Stretch.None, Fill = new SolidColorBrush(Colors.White) };
+                Arc arc = new Arc() { ArcThickness = 1, ArcThicknessUnit = Microsoft.Expression.Media.UnitType.Percent, Stretch = Stretch.None, Fill = new SolidColorBrush(Colors.White) };
 
-                a.StartAngle = i * angle;
-                a.EndAngle = (i + 1) * angle;
+                arc.StartAngle = i * angle;
+                arc.EndAngle = (i + 1) * angle;
 
-                a.Tag = h;
+                arc.Tag = h;
 
-                a.MouseEnter += A_MouseEnter;
+                arc.MouseEnter += A_MouseEnter;
 
                 angleSum += (i + 1) * angle;
 
@@ -90,13 +90,13 @@ namespace Internet.Status.Display
                 {
                     if (angleSum > 360 || angleSum < 360)
                     {
-                        a.EndAngle = 360;
+                        arc.EndAngle = 360;
                     }
                 }
 
-                grid.Children.Add(a);
+                grid.Children.Add(arc);
 
-                hosts.Add(h, a);
+                hosts.Add(h, arc);
                 lastPings.Add(h, null);
             }
 
@@ -179,7 +179,7 @@ namespace Internet.Status.Display
                 }
                 catch (Exception ex)
                 {
-                    notifyIcon.ShowBalloonTip(10000, "Fehler", "Es ist ein Fehler beim Schreiben der Internetabstürze aufgetreten.", System.Windows.Forms.ToolTipIcon.Error);
+                    notifyIcon.ShowBalloonTip(10000, "error", "There was an error writing the Internet crash.", System.Windows.Forms.ToolTipIcon.Error);
                 } 
             }
 
@@ -360,19 +360,19 @@ namespace Internet.Status.Display
 
             MenuItem exitButton = new MenuItem()
             {
-                Header = "Beenden"
+                Header = "break up"
             };
             exitButton.Click += this.ContextMenuExitApp;
 
             MenuItem settingsButton = new MenuItem()
             {
-                Header = "Einstellungen"
+                Header = "Settings"
             };
             settingsButton.Click += this.ContextMenuSettingsButton;
 
             MenuItem lockModeButton = new MenuItem()
             {
-                Header = "UI sperren",
+                Header = "Lock UI",
                 IsCheckable = true,
                 IsChecked = lockMode
             };
@@ -380,11 +380,11 @@ namespace Internet.Status.Display
 
             MenuItem focusOnButton = new MenuItem()
             {
-                Header = "Dauerhafte Anzeige von..."
+                Header = "Permanent display of ..."
             };
             MenuItem loseFocusButton = new MenuItem()
             {
-                Header = "Ausblenden",
+                Header = "Hide",
                 Tag = 1 //Mark this button as lose focus button
             };
             loseFocusButton.Click += this.ContextMenuHostButton;
